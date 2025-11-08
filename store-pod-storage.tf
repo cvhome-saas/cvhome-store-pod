@@ -2,7 +2,7 @@ module "cdn-storage-bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "~> 3.0"
 
-  bucket_prefix = "${var.project}-${var.pod.id}-${var.env}-cdn-"
+  bucket_prefix = "${local.module_name}-${var.project}-${var.env}-cdn-"
 
 
   force_destroy = true
@@ -13,7 +13,7 @@ module "cert-storage-bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "~> 3.0"
 
-  bucket_prefix = "${var.project}-${var.pod.id}-${var.env}-cert-"
+  bucket_prefix = "${local.module_name}-${var.project}-${var.env}-cert-"
 
 
   force_destroy = true
@@ -136,21 +136,3 @@ resource "aws_s3_bucket_policy" "cdn_storage_bucket_policy" {
   bucket = module.cdn-storage-bucket.s3_bucket_id
   policy = data.aws_iam_policy_document.cdn_storage_bucket_policy.json
 }
-
-# module "cdn-storage-record" {
-#   source  = "terraform-aws-modules/route53/aws//modules/records"
-#   version = "~> 2.0"
-#
-#   zone_name = var.domain_zone_name
-#
-#   records = [
-#     {
-#       name = "cdn"
-#       type = "A"
-#       alias = {
-#         name    = module.cdn-storage-cloudfront.cloudfront_distribution_domain_name
-#         zone_id = module.cdn-storage-cloudfront.cloudfront_distribution_hosted_zone_id
-#       }
-#     },
-#   ]
-# }
