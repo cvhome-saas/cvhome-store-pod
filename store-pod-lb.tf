@@ -81,7 +81,7 @@ module "cluster-nlb" {
     }
     gateway-tg-443 = {
       create_attachment = false
-      name_prefix       = "saas"
+      name_prefix       = "s-g"
       protocol          = "TCP"
       port              = 443
       target_type       = "ip"
