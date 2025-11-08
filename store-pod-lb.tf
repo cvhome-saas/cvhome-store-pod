@@ -26,7 +26,7 @@ locals {
 module "cluster-nlb" {
   source = "terraform-aws-modules/alb/aws"
 
-  name                       = "${local.module_name}-${var.project}-${var.env}-nlb"
+  name                       = "${local.module_name}-${var.project}-${var.env}"
   vpc_id                     = var.vpc_id
   subnets                    = var.public_subnets
   enable_deletion_protection = false
