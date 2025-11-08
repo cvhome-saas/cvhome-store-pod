@@ -1,0 +1,6 @@
+/.idea/
+/.terraform.lock.hcl
+/.terraform/
+/backend.conf
+/env.sh
+/builds/*.zip
