@@ -458,7 +458,7 @@ module "store-pod-cluster" {
 }
 
 module "store-pod-service" {
-  source       = "git::https://github.com/cvhome-saas/terraform-aws-ecs-service.git?ref=main"
+  source       = "git::https://github.com/cvhome-saas/cvhome-common-ecs-service.git?ref=main"
   namespace_id = aws_service_discovery_private_dns_namespace.cluster_namespace.id
   service_name = each.key
   tags         = var.tags
