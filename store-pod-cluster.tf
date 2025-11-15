@@ -425,6 +425,9 @@ locals {
               "name" : "ACME_CA_URL",
               "value" : "https://acme-v02.api.letsencrypt.org/directory"
             },
+            { "name" : "OTEL_SERVICE_NAME", "value" : "store-pod-saas-gateway" },
+            { "name" : "OTEL_EXPORTER_OTLP_PROTOCOL", "value" : "grpc" },
+            { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4318" },
             {
               "name" : "DOMAIN_LOOKUP_TTL",
               "value" : var.is_prod ? "5m" : "1m"
@@ -509,16 +512,16 @@ module "monitoring-collector-service" {
   module_name  = local.module_name
   project      = var.project
   service = {
-    public              = true
-    priority            = 100
-    service_type        = "SERVICE"
-    loadbalancer_target_groups = {}
+    public                      = true
+    priority                    = 100
+    service_type                = "SERVICE"
+    loadbalancer_target_groups  = {}
     load_balancer_host_matchers = []
-    desired             = 1
-    cpu                 = 512
-    memory              = 1024
-    main_container      = "otel-collector"
-    main_container_port = 4318
+    desired                     = 1
+    cpu                         = 512
+    memory                      = 1024
+    main_container              = "otel-collector"
+    main_container_port         = 4318
     health_check = {
       path                = "/"
       port                = 4318
