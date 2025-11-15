@@ -427,7 +427,7 @@ locals {
             },
             { "name" : "OTEL_SERVICE_NAME", "value" : "store-pod-saas-gateway" },
             { "name" : "OTEL_EXPORTER_OTLP_PROTOCOL", "value" : "grpc" },
-            { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4318" },
+            { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4317" },
             {
               "name" : "DOMAIN_LOOKUP_TTL",
               "value" : var.is_prod ? "5m" : "1m"
