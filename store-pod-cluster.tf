@@ -46,42 +46,6 @@ locals {
         }
       }
     }
-    "merchant-ui" = {
-      public                      = true
-      priority                    = 100
-      service_type                = "SERVICE"
-      loadbalancer_target_groups  = {}
-      load_balancer_host_matchers = []
-      desired                     = 1
-      cpu                         = 512
-      memory                      = 1024
-      main_container              = "merchant-ui"
-      main_container_port         = 8111
-      health_check = {
-        path                = "/"
-        port                = 8111
-        healthy_threshold   = 2
-        interval            = 60
-        unhealthy_threshold = 3
-      }
-
-      containers = {
-        "merchant-ui" = {
-          image = "${var.docker_registry}/store-pod/merchant-ui:${var.image_tag}"
-          environment : [
-          ]
-          secrets : []
-          portMappings : [
-            {
-              name : "app",
-              containerPort : 8111,
-              hostPort : 8111,
-              protocol : "tcp"
-            }
-          ]
-        }
-      }
-    }
     "merchant" = {
       public                     = true
       priority                   = 100
