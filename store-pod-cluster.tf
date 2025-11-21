@@ -32,6 +32,9 @@ locals {
         "landing-ui" = {
           image = "${var.docker_registry}/store-pod/landing-ui:${var.image_tag}"
           environment : [
+            { "name" : "OTEL_SERVICE_NAME", "value" : "landing-ui" },
+            { "name" : "OTEL_EXPORTER_OTLP_PROTOCOL", "value" : "grpc" },
+            { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4317" },
             { "name" : "INTERNAL_STORE_POD_GATEWAY", "value" : "http://store-pod-saas-gateway.${var.pod.namespace}:80" }
           ]
           secrets : []
