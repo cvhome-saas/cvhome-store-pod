@@ -52,7 +52,6 @@ variable "test_stores" {
 }
 variable "pod" {
   type = object({
-    index : number
     id : string
     name : string
     org : string
