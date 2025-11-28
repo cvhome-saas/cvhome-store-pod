@@ -93,7 +93,6 @@ locals {
               "value" : "https://${module.cdn-storage-cloudfront.cloudfront_distribution_domain_name}"
             },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CONTENT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_ORDER_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID_ID", "value" : var.pod.id },
@@ -120,75 +119,6 @@ locals {
               name : "app",
               containerPort : 8120,
               hostPort : 8120,
-              protocol : "tcp"
-            }
-          ]
-        }
-      }
-    }
-    "content" = {
-      public                     = true
-      priority                   = 100
-      service_type               = "SERVICE"
-      loadbalancer_target_groups = {}
-
-      load_balancer_host_matchers = []
-      desired                     = 1
-      cpu                         = 512
-      memory                      = 1024
-      main_container              = "content"
-      main_container_port         = 8121
-      health_check = {
-        path                = "/actuator/health"
-        port                = 8121
-        healthy_threshold   = 2
-        interval            = 60
-        unhealthy_threshold = 3
-      }
-
-      containers = {
-        "content" = {
-          image = "${var.docker_registry}/store-pod/content:${var.image_tag}"
-          environment : [
-            { "name" : "SPRING_PROFILES_ACTIVE", "value" : local.profiles },
-            { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4318" },
-            { "name" : "OTEL_SDK_DISABLED", "value" : !var.is_monitoring },
-            { "name" : "COM_ASREVO_CVHOME_APP_DOMAIN", "value" : var.domain },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_STORE-CORE-GATEWAY_SCHEMA", "value" : "https" },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_STORE-CORE-GATEWAY_PORT", "value" : "443" },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CORE-AUTH_SCHEMA", "value" : "https" },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CORE-AUTH_PORT", "value" : "443" },
-            { "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE", "value" : var.pod.namespace },
-            {
-              "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE-ID",
-              "value" : aws_service_discovery_private_dns_namespace.cluster_namespace.id
-            },
-            { "name" : "COM_ASREVO_CVHOME_CDN_STORAGE_PROVIDER", "value" : "S3" },
-            { "name" : "COM_ASREVO_CVHOME_CDN_STORAGE_BUCKET", "value" : module.cdn-storage-bucket.s3_bucket_id },
-            {
-              "name" : "COM_ASREVO_CVHOME_CDN_BASE-PATH",
-              "value" : "https://${module.cdn-storage-cloudfront.cloudfront_distribution_domain_name}"
-            },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CONTENT_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_ORDER_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
-            { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
-            { "name" : "SPRING_DATASOURCE_PORT", "value" : module.store-pod-db.db_instance_port },
-            { "name" : "SPRING_DATASOURCE_USERNAME", "value" : module.store-pod-db.db_instance_username },
-          ]
-          secrets : [
-            {
-              name : "SPRING_DATASOURCE_PASSWORD",
-              valueFrom = "${module.store-pod-db.db_instance_master_user_secret_arn}:password::"
-            }
-          ]
-          portMappings : [
-            {
-              name : "app",
-              containerPort : 8121,
-              hostPort : 8121,
               protocol : "tcp"
             }
           ]
@@ -239,7 +169,6 @@ locals {
               "value" : "https://${module.cdn-storage-cloudfront.cloudfront_distribution_domain_name}"
             },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CONTENT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_ORDER_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
@@ -308,7 +237,6 @@ locals {
               "value" : "https://${module.cdn-storage-cloudfront.cloudfront_distribution_domain_name}"
             },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CONTENT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_ORDER_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
