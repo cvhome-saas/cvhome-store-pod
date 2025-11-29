@@ -43,11 +43,17 @@ module "cdn-storage-cloudfront" {
   # This rate is charged only once per month, per metric (up to 8 metrics per distribution).
   create_monitoring_subscription = true
 
-  create_origin_access_identity = true
-  origin_access_identities = {
-    cdn_storage_access_identity = "My awesome CloudFront can access"
-  }
 
+  origin_access_control = {
+    s3 = {
+      description      = "CloudFront access to S3"
+      origin_type      = "s3"
+      signing_behavior = "always"
+      signing_protocol = "sigv4"
+    }
+  }
+  
+  
   # create_origin_access_control = false
   # origin_access_control = {
   #   cdn_storage = {
@@ -62,10 +68,11 @@ module "cdn-storage-cloudfront" {
     cdn_storage = {
       # with origin access identity (legacy)
       domain_name = module.cdn-storage-bucket.s3_bucket_bucket_regional_domain_name
-      s3_origin_config = {
-        origin_access_identity = "cdn_storage_access_identity" # key in `origin_access_identities`
-        # cloudfront_access_identity_path = "origin-access-identity/cloudfront/E5IGQAA1QO48Z" # external OAI resource
-      }
+      origin_access_control_key = "s3" # key in `origin_access_control`
+      # s3_origin_config = {
+      #   origin_access_identity = "cdn_storage_access_identity" # key in `origin_access_identities`
+      #   # cloudfront_access_identity_path = "origin-access-identity/cloudfront/E5IGQAA1QO48Z" # external OAI resource
+      # }
     }
   }
 
@@ -103,17 +110,6 @@ module "cdn-storage-cloudfront" {
 }
 
 data "aws_iam_policy_document" "cdn_storage_bucket_policy" {
-  # Origin Access Identities
-  statement {
-    actions   = ["s3:GetObject"]
-    resources = ["${module.cdn-storage-bucket.s3_bucket_arn}/*"]
-
-    principals {
-      type        = "AWS"
-      identifiers = module.cdn-storage-cloudfront.cloudfront_origin_access_identity_iam_arns
-    }
-  }
-
   # Origin Access Controls
   statement {
     actions   = ["s3:GetObject"]
