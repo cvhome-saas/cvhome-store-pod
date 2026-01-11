@@ -86,7 +86,7 @@ locals {
             },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_ORDER_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID_ID", "value" : var.pod.id },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_NAME", "value" : var.pod.name },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_ENDPOINT", "value" : var.pod.endpoint },
@@ -162,7 +162,7 @@ locals {
             },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_ORDER_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
             { "name" : "SPRING_DATASOURCE_PORT", "value" : module.store-pod-db.db_instance_port },
@@ -185,7 +185,7 @@ locals {
         }
       }
     }
-    "order" = {
+    "checkout" = {
       public                     = true
       priority                   = 100
       service_type               = "SERVICE"
@@ -195,7 +195,7 @@ locals {
       desired                     = 1
       cpu                         = 512
       memory                      = 1024
-      main_container              = "order"
+      main_container              = "checkout"
       main_container_port         = 8123
       health_check = {
         path                = "/actuator/health"
@@ -206,8 +206,8 @@ locals {
       }
 
       containers = {
-        "order" = {
-          image = "${var.docker_registry}/store-pod/order:${var.image_tag}"
+        "checkout" = {
+          image = "${var.docker_registry}/store-pod/checkout:${var.image_tag}"
           environment : [
             { "name" : "SPRING_PROFILES_ACTIVE", "value" : local.profiles },
             { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4318" },
@@ -230,7 +230,7 @@ locals {
             },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_ORDER_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
             { "name" : "SPRING_DATASOURCE_PORT", "value" : module.store-pod-db.db_instance_port },
