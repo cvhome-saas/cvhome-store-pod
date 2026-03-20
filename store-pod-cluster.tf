@@ -163,6 +163,14 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID_ID", "value" : var.pod.id },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_NAME", "value" : var.pod.name },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_ENDPOINT", "value" : var.pod.endpoint },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
+            {
+              "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
+              "value" : "store-pod-saas-gateway-${var.pod.id}.${var.domain_zone_name}"
+            },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
             { "name" : "SPRING_DATASOURCE_PORT", "value" : module.store-pod-db.db_instance_port },
@@ -231,6 +239,14 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID_ID", "value" : var.pod.id },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_NAME", "value" : var.pod.name },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_ENDPOINT", "value" : var.pod.endpoint },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
+            {
+              "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
+              "value" : "store-pod-saas-gateway-${var.pod.id}.${var.domain_zone_name}"
+            },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
             { "name" : "SPRING_DATASOURCE_PORT", "value" : module.store-pod-db.db_instance_port },
