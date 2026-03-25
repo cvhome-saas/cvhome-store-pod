@@ -365,9 +365,9 @@ locals {
 }
 
 module "store-pod-cluster" {
-  source                             = "terraform-aws-modules/ecs/aws"
-  cluster_name                       = "${local.module_name}-${var.project}-${var.env}"
-  tags                               = var.tags
+  source       = "terraform-aws-modules/ecs/aws"
+  cluster_name = "${local.module_name}-${var.project}-${var.env}"
+  tags         = var.tags
 }
 
 module "store-pod-service" {
