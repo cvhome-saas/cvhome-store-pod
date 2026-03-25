@@ -110,7 +110,7 @@ module "pod-record" {
 
   records = [
     {
-      name = local.pod_record_prefix
+      name = var.pod.pod_record_prefix
       type = "A"
       alias = {
         name    = module.cluster-nlb.dns_name
@@ -128,7 +128,7 @@ module "wildcard-pod-record" {
 
   records = [
     {
-      name = "*.${local.pod_record_prefix}"
+      name = "*.${var.pod.pod_record_prefix}"
       type = "A"
       alias = {
         name    = module.cluster-nlb.dns_name

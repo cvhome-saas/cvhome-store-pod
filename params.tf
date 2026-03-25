@@ -31,12 +31,6 @@ variable "log_s3_bucket_id" {
 variable "domain" {
   type = string
 }
-variable "shorten_pod_id" {
-  type = string
-}
-variable "pod_record_prefix" {
-  type = string
-}
 variable "domain_zone_name" {
   type = string
 }
@@ -60,6 +54,8 @@ variable "pod" {
   type = object({
     index : number
     id : string
+    shorten_pod_id : string
+    pod_record_prefix : string
     name : string
     org : string
     endpoint : string
