@@ -31,6 +31,12 @@ variable "log_s3_bucket_id" {
 variable "domain" {
   type = string
 }
+variable "shorten_pod_id" {
+  type = string
+}
+variable "pod_record_prefix" {
+  type = string
+}
 variable "domain_zone_name" {
   type = string
 }
