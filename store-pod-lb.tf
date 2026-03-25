@@ -110,6 +110,7 @@ module "pod-record" {
 
   records = [
     {
+      key  = "pod-record"
       name = var.pod.pod_record_prefix
       type = "A"
       alias = {
@@ -128,6 +129,7 @@ module "wildcard-pod-record" {
 
   records = [
     {
+      key  = "wildcard-pod-record"
       name = "*.${var.pod.pod_record_prefix}"
       type = "A"
       alias = {
