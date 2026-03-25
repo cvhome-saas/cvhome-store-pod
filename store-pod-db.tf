@@ -2,7 +2,7 @@ module "db_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 5.0"
 
-  name        = "db-${local.module_name}-${var.project}-${var.env}"
+  name        = "db-${local.simple_module_name}-${var.project}-${var.env}"
   description = "Postgres db security group"
   vpc_id      = var.vpc_id
 
@@ -24,7 +24,7 @@ module "db_security_group" {
 module "store-pod-db" {
   source = "terraform-aws-modules/rds/aws"
 
-  identifier = "${local.module_name}-${var.project}-${var.env}"
+  identifier = "${local.simple_module_name}-${var.project}-${var.env}"
 
   engine            = "postgres"
   engine_version    = "17.4"

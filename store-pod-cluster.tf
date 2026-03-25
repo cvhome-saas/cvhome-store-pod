@@ -366,7 +366,7 @@ locals {
 
 module "store-pod-cluster" {
   source       = "terraform-aws-modules/ecs/aws"
-  cluster_name = "${local.module_name}-${var.project}-${var.env}"
+  cluster_name = "${local.simple_module_name}-${var.project}-${var.env}"
   tags         = var.tags
 }
 
@@ -377,7 +377,7 @@ module "store-pod-service" {
   tags         = var.tags
   cluster_name = module.store-pod-cluster.cluster_name
   env          = var.env
-  module_name  = local.module_name
+  module_name  = local.simple_module_name
   project      = var.project
   service      = each.value
   subnet       = var.public_subnets
@@ -411,7 +411,7 @@ module "monitoring-collector-service" {
   tags         = var.tags
   cluster_name = module.store-pod-cluster.cluster_name
   env          = var.env
-  module_name  = local.module_name
+  module_name  = local.simple_module_name
   project      = var.project
   service = {
     public                      = true
