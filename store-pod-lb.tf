@@ -101,39 +101,39 @@ module "cluster-nlb" {
 
   tags = var.tags
 }
-#
-# module "store-pod-saas-gateway-record" {
-#   source  = "terraform-aws-modules/route53/aws//modules/records"
-#   version = "~> 3.0"
-#
-#   zone_name = var.domain_zone_name
-#
-#   records = [
-#     {
-#       name = "store-pod-saas-gateway-${var.pod.id}"
-#       type = "A"
-#       alias = {
-#         name    = module.cluster-nlb.dns_name
-#         zone_id = module.cluster-nlb.zone_id
-#       }
-#     }
-#   ]
-# }
-#
-# module "wildcard-store-pod-saas-gateway-record" {
-#   source  = "terraform-aws-modules/route53/aws//modules/records"
-#   version = "~> 3.0"
-#
-#   zone_name = var.domain_zone_name
-#
-#   records = [
-#     {
-#       name = "*.store-pod-saas-gateway-${var.pod.id}"
-#       type = "A"
-#       alias = {
-#         name    = module.cluster-nlb.dns_name
-#         zone_id = module.cluster-nlb.zone_id
-#       }
-#     }
-#   ]
-# }
+
+module "pod-record" {
+  source  = "terraform-aws-modules/route53/aws//modules/records"
+  version = "~> 3.0"
+
+  zone_name = var.domain_zone_name
+
+  records = [
+    {
+      name = local.pod_record_prefix
+      type = "A"
+      alias = {
+        name    = module.cluster-nlb.dns_name
+        zone_id = module.cluster-nlb.zone_id
+      }
+    }
+  ]
+}
+
+module "wildcard-pod-record" {
+  source  = "terraform-aws-modules/route53/aws//modules/records"
+  version = "~> 3.0"
+
+  zone_name = var.domain_zone_name
+
+  records = [
+    {
+      name = "*.${local.pod_record_prefix}"
+      type = "A"
+      alias = {
+        name    = module.cluster-nlb.dns_name
+        zone_id = module.cluster-nlb.zone_id
+      }
+    }
+  ]
+}

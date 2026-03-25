@@ -93,7 +93,7 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
             {
               "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
-              "value" : "store-pod-saas-gateway-${var.pod.id}.${var.domain_zone_name}"
+              "value" : local.pod_record
             },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
@@ -169,7 +169,7 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
             {
               "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
-              "value" : "store-pod-saas-gateway-${var.pod.id}.${var.domain_zone_name}"
+              "value" : local.pod_record
             },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
@@ -245,7 +245,7 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
             {
               "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
-              "value" : "store-pod-saas-gateway-${var.pod.id}.${var.domain_zone_name}"
+              "value" : local.pod_record
             },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },

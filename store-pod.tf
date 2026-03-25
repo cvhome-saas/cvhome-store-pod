@@ -1,6 +1,8 @@
 locals {
-  module_name        = "sp-${var.pod.id}"
-  shorten_module     = substr(local.module_name, 0, 15)
-  module_hash        = substr(md5(local.module_name), 0, 3)
-  simple_module_name = "${local.shorten_module}-${local.module_hash}"
+  shorten_pod_id      = substr(var.pod.id, 0, 15)
+  shorten_pod_id_hash = substr(md5(var.pod.id), 0, 3)
+  shorten_pod         = "${local.shorten_pod_id}-${local.shorten_pod_id_hash}"
+  simple_module_name  = "pod-${local.shorten_pod}"
+  pod_record_prefix   = "store-pod-saas-gateway-${var.pod.id}"
+  pod_record          = "${local.pod_record_prefix}.${var.domain_zone_name}"
 }
