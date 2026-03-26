@@ -2,7 +2,7 @@ module "cdn-storage-bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "~> 3.0"
 
-  bucket_prefix = "${local.module_name}-${var.project}-${var.env}-cdn-"
+  bucket_prefix = "${local.simple_module_name}-${var.project}-${var.env}-c-"
 
 
   force_destroy = true
@@ -13,7 +13,7 @@ module "cert-storage-bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "~> 3.0"
 
-  bucket_prefix = "${local.module_name}-${var.project}-${var.env}-cert-"
+  bucket_prefix = "${local.simple_module_name}-${var.project}-${var.env}-cr-"
 
 
   force_destroy = true
@@ -22,7 +22,7 @@ module "cert-storage-bucket" {
 
 
 module "cdn-storage-cloudfront" {
-  source = "terraform-aws-modules/cloudfront/aws"
+  source  = "terraform-aws-modules/cloudfront/aws"
   version = "5.2.0"
 
 

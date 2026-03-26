@@ -26,7 +26,7 @@ locals {
 module "cluster-nlb" {
   source = "terraform-aws-modules/alb/aws"
 
-  name                       = "${local.module_name}-${var.project}-${var.env}"
+  name                       = "${local.simple_module_name}-${var.project}-${var.env}"
   vpc_id                     = var.vpc_id
   subnets                    = var.public_subnets
   enable_deletion_protection = false
@@ -102,7 +102,7 @@ module "cluster-nlb" {
   tags = var.tags
 }
 
-module "store-pod-saas-gateway-record" {
+module "pod-record" {
   source  = "terraform-aws-modules/route53/aws//modules/records"
   version = "~> 3.0"
 
@@ -110,7 +110,8 @@ module "store-pod-saas-gateway-record" {
 
   records = [
     {
-      name = "store-pod-saas-gateway-${var.pod.id}"
+      key  = "pod-record"
+      name = var.pod.pod_record_prefix
       type = "A"
       alias = {
         name    = module.cluster-nlb.dns_name
@@ -120,7 +121,7 @@ module "store-pod-saas-gateway-record" {
   ]
 }
 
-module "wildcard-store-pod-saas-gateway-record" {
+module "wildcard-pod-record" {
   source  = "terraform-aws-modules/route53/aws//modules/records"
   version = "~> 3.0"
 
@@ -128,7 +129,8 @@ module "wildcard-store-pod-saas-gateway-record" {
 
   records = [
     {
-      name = "*.store-pod-saas-gateway-${var.pod.id}"
+      key  = "wildcard-pod-record"
+      name = "*.${var.pod.pod_record_prefix}"
       type = "A"
       alias = {
         name    = module.cluster-nlb.dns_name

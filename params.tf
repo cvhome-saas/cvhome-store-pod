@@ -54,6 +54,8 @@ variable "pod" {
   type = object({
     index : number
     id : string
+    shorten_pod_id : string
+    pod_record_prefix : string
     name : string
     org : string
     endpoint : string

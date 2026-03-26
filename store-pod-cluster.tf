@@ -87,13 +87,13 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID_ID", "value" : var.pod.id },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID", "value" : var.pod.id },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_NAME", "value" : var.pod.name },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_ENDPOINT", "value" : var.pod.endpoint },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
             {
               "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
-              "value" : "store-pod-saas-gateway-${var.pod.id}.${var.domain_zone_name}"
+              "value" : local.pod_record
             },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
@@ -163,13 +163,13 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID_ID", "value" : var.pod.id },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID", "value" : var.pod.id },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_NAME", "value" : var.pod.name },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_ENDPOINT", "value" : var.pod.endpoint },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
             {
               "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
-              "value" : "store-pod-saas-gateway-${var.pod.id}.${var.domain_zone_name}"
+              "value" : local.pod_record
             },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
@@ -239,13 +239,13 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
-            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID_ID", "value" : var.pod.id },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID", "value" : var.pod.id },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_NAME", "value" : var.pod.name },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_ENDPOINT", "value" : var.pod.endpoint },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
             {
               "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
-              "value" : "store-pod-saas-gateway-${var.pod.id}.${var.domain_zone_name}"
+              "value" : local.pod_record
             },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
@@ -365,9 +365,9 @@ locals {
 }
 
 module "store-pod-cluster" {
-  source                             = "terraform-aws-modules/ecs/aws"
-  cluster_name                       = "${local.module_name}-${var.project}-${var.env}"
-  tags                               = var.tags
+  source       = "terraform-aws-modules/ecs/aws"
+  cluster_name = "${local.simple_module_name}-${var.project}-${var.env}"
+  tags         = var.tags
 }
 
 module "store-pod-service" {
@@ -377,7 +377,7 @@ module "store-pod-service" {
   tags         = var.tags
   cluster_name = module.store-pod-cluster.cluster_name
   env          = var.env
-  module_name  = local.module_name
+  module_name  = local.simple_module_name
   project      = var.project
   service      = each.value
   subnet       = var.public_subnets
@@ -411,7 +411,7 @@ module "monitoring-collector-service" {
   tags         = var.tags
   cluster_name = module.store-pod-cluster.cluster_name
   env          = var.env
-  module_name  = local.module_name
+  module_name  = local.simple_module_name
   project      = var.project
   service = {
     public                      = true
