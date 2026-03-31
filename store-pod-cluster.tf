@@ -69,6 +69,7 @@ locals {
             { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4318" },
             { "name" : "OTEL_SDK_DISABLED", "value" : !var.is_monitoring },
             { "name" : "COM_ASREVO_CVHOME_APP_DOMAIN", "value" : var.domain },
+            { "name" : "COM_ASREVO_CVHOME_POD_DOMAIN", "value" : local.pod_domain },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_STORE-CORE-GATEWAY_SCHEMA", "value" : "https" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_STORE-CORE-GATEWAY_PORT", "value" : "443" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_SCHEMA", "value" : "https" },
@@ -87,13 +88,14 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID", "value" : var.pod.id },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_NAME", "value" : var.pod.name },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_ENDPOINT", "value" : var.pod.endpoint },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
             {
               "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
-              "value" : local.pod_record
+              "value" : local.pod_domain
             },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
@@ -145,6 +147,7 @@ locals {
             { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4318" },
             { "name" : "OTEL_SDK_DISABLED", "value" : !var.is_monitoring },
             { "name" : "COM_ASREVO_CVHOME_APP_DOMAIN", "value" : var.domain },
+            { "name" : "COM_ASREVO_CVHOME_POD_DOMAIN", "value" : local.pod_domain },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_STORE-CORE-GATEWAY_SCHEMA", "value" : "https" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_STORE-CORE-GATEWAY_PORT", "value" : "443" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_SCHEMA", "value" : "https" },
@@ -163,13 +166,14 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID", "value" : var.pod.id },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_NAME", "value" : var.pod.name },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_ENDPOINT", "value" : var.pod.endpoint },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
             {
               "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
-              "value" : local.pod_record
+              "value" : local.pod_domain
             },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
@@ -221,6 +225,7 @@ locals {
             { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4318" },
             { "name" : "OTEL_SDK_DISABLED", "value" : !var.is_monitoring },
             { "name" : "COM_ASREVO_CVHOME_APP_DOMAIN", "value" : var.domain },
+            { "name" : "COM_ASREVO_CVHOME_POD_DOMAIN", "value" : local.pod_domain },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_STORE-CORE-GATEWAY_SCHEMA", "value" : "https" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_STORE-CORE-GATEWAY_PORT", "value" : "443" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_SCHEMA", "value" : "https" },
@@ -239,13 +244,93 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_NAMESPACE", "value" : var.pod.namespace },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID", "value" : var.pod.id },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_NAME", "value" : var.pod.name },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_ENDPOINT", "value" : var.pod.endpoint },
             { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
             {
               "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
-              "value" : local.pod_record
+              "value" : local.pod_domain
+            },
+            { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
+            { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
+            { "name" : "SPRING_DATASOURCE_PORT", "value" : module.store-pod-db.db_instance_port },
+            { "name" : "SPRING_DATASOURCE_USERNAME", "value" : module.store-pod-db.db_instance_username },
+          ]
+          secrets : [
+            {
+              name : "SPRING_DATASOURCE_PASSWORD",
+              valueFrom = "${module.store-pod-db.db_instance_master_user_secret_arn}:password::"
+            }
+          ]
+
+          portMappings : [
+            {
+              name : "app",
+              containerPort : 8123,
+              hostPort : 8123,
+              protocol : "tcp"
+            }
+          ]
+        }
+      }
+    }
+    "cua" = {
+      public                     = true
+      priority                   = 100
+      service_type               = "SERVICE"
+      loadbalancer_target_groups = {}
+
+      load_balancer_host_matchers = []
+      desired                     = 1
+      cpu                         = 512
+      memory                      = 1024
+      main_container              = "cua"
+      main_container_port         = 8123
+      health_check = {
+        path                = "/actuator/health"
+        port                = 8123
+        healthy_threshold   = 2
+        interval            = 60
+        unhealthy_threshold = 3
+      }
+
+      containers = {
+        "cua" = {
+          image = "${var.docker_registry}/store-pod/cua:${var.image_tag}"
+          environment : [
+            { "name" : "SPRING_PROFILES_ACTIVE", "value" : local.profiles },
+            { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4318" },
+            { "name" : "OTEL_SDK_DISABLED", "value" : !var.is_monitoring },
+            { "name" : "COM_ASREVO_CVHOME_APP_DOMAIN", "value" : var.domain },
+            { "name" : "COM_ASREVO_CVHOME_POD_DOMAIN", "value" : local.pod_domain },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_STORE-CORE-GATEWAY_SCHEMA", "value" : "https" },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_STORE-CORE-GATEWAY_PORT", "value" : "443" },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_SCHEMA", "value" : "https" },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_PORT", "value" : "443" },
+            { "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE", "value" : var.pod.namespace },
+            {
+              "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE-ID",
+              "value" : aws_service_discovery_private_dns_namespace.cluster_namespace.id
+            },
+            { "name" : "COM_ASREVO_CVHOME_CDN_STORAGE_PROVIDER", "value" : "S3" },
+            { "name" : "COM_ASREVO_CVHOME_CDN_STORAGE_BUCKET", "value" : module.cdn-storage-bucket.s3_bucket_id },
+            {
+              "name" : "COM_ASREVO_CVHOME_CDN_BASE-PATH",
+              "value" : "https://${module.cdn-storage-cloudfront.cloudfront_distribution_domain_name}"
+            },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_MERCHANT_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_CATALOG_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_CHECKOUT_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_NAMESPACE", "value" : var.pod.namespace },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ID", "value" : var.pod.id },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_NAME", "value" : var.pod.name },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_ENDPOINT", "value" : var.pod.endpoint },
+            { "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_ENDPOINT_TYPE", "value" : var.pod.endpointType },
+            {
+              "name" : "COM_ASREVO_CVHOME_POD-INFO_POD_DOMAIN",
+              "value" : local.pod_domain
             },
             { "name" : "SPRING_DATASOURCE_DATABASE", "value" : module.store-pod-db.db_instance_name },
             { "name" : "SPRING_DATASOURCE_HOST", "value" : module.store-pod-db.db_instance_address },
