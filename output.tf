@@ -1,3 +1,3 @@
 output "domain" {
-  value = local.pod_record
+  value = local.pod_domain
 }
