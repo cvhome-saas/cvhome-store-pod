@@ -287,10 +287,10 @@ locals {
       cpu                         = 512
       memory                      = 1024
       main_container              = "cua"
-      main_container_port         = 8123
+      main_container_port         = 8124
       health_check = {
         path                = "/actuator/health"
-        port                = 8123
+        port                = 8124
         healthy_threshold   = 2
         interval            = 60
         unhealthy_threshold = 3
@@ -347,8 +347,8 @@ locals {
           portMappings : [
             {
               name : "app",
-              containerPort : 8123,
-              hostPort : 8123,
+              containerPort : 8124,
+              hostPort : 8124,
               protocol : "tcp"
             }
           ]
