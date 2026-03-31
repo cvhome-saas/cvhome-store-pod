@@ -27,7 +27,7 @@ locals {
             { "name" : "OTEL_SERVICE_NAME", "value" : "landing-ui" },
             { "name" : "OTEL_EXPORTER_OTLP_PROTOCOL", "value" : "grpc" },
             { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4317" },
-            { "name" : "INTERNAL_STORE_POD_GATEWAY", "value" : "http://store-pod-saas-gateway.${var.pod.namespace}:80" }
+            { "name" : "INTERNAL_SPG", "value" : "http://spg.${var.pod.namespace}:80" }
           ]
           secrets : []
           portMappings : [
@@ -270,19 +270,19 @@ locals {
         }
       }
     }
-    "store-pod-saas-gateway" = {
+    "spg" = {
       public       = true
       priority     = 100
       service_type = "SERVICE"
       loadbalancer_target_groups = {
         "gateway-tg-80" : {
           loadbalancer_target_groups_arn = module.cluster-nlb.target_groups["gateway-tg-80"].arn
-          main_container                 = "store-pod-saas-gateway"
+          main_container                 = "spg"
           main_container_port            = 80
         }
         "gateway-tg-443" : {
           loadbalancer_target_groups_arn = module.cluster-nlb.target_groups["gateway-tg-443"].arn
-          main_container                 = "store-pod-saas-gateway"
+          main_container                 = "spg"
           main_container_port            = 443
         }
       }
@@ -293,7 +293,7 @@ locals {
       desired                     = 1
       cpu                         = 512
       memory                      = 1024
-      main_container              = "store-pod-saas-gateway"
+      main_container              = "spg"
       main_container_port         = 443
       health_check = {
         path                = "/"
@@ -304,8 +304,8 @@ locals {
       }
 
       containers = {
-        "store-pod-saas-gateway" = {
-          image = "${var.docker_registry}/store-pod/store-pod-saas-gateway:${var.image_tag}"
+        "spg" = {
+          image = "${var.docker_registry}/store-pod/spg:${var.image_tag}"
           environment : [
             { "name" : "NAMESPACE", "value" : var.pod.namespace },
             {
@@ -328,7 +328,7 @@ locals {
               "name" : "ACME_CA_URL",
               "value" : "https://acme-v02.api.letsencrypt.org/directory"
             },
-            { "name" : "OTEL_SERVICE_NAME", "value" : "store-pod-saas-gateway" },
+            { "name" : "OTEL_SERVICE_NAME", "value" : "spg" },
             { "name" : "OTEL_EXPORTER_OTLP_PROTOCOL", "value" : "grpc" },
             { "name" : "OTEL_EXPORTER_OTLP_ENDPOINT", "value" : "http://otel-collector.${var.pod.namespace}:4317" },
             {
