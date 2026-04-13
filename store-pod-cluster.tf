@@ -75,7 +75,6 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_SCHEMA", "value" : "https" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_PORT", "value" : "443" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_SCHEMA", "value" : "https" },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_PORT", "value" : "443" },
             { "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE", "value" : var.pod.namespace },
             {
               "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE-ID",
@@ -155,7 +154,6 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_SCHEMA", "value" : "https" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_PORT", "value" : "443" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_SCHEMA", "value" : "https" },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_PORT", "value" : "443" },
             { "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE", "value" : var.pod.namespace },
             {
               "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE-ID",
@@ -235,7 +233,6 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_SCHEMA", "value" : "https" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_PORT", "value" : "443" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_SCHEMA", "value" : "https" },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_PORT", "value" : "443" },
             { "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE", "value" : var.pod.namespace },
             {
               "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE-ID",
@@ -316,7 +313,6 @@ locals {
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_SCHEMA", "value" : "https" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_UAA_PORT", "value" : "443" },
             { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_SCHEMA", "value" : "https" },
-            { "name" : "COM_ASREVO_CVHOME_SERVICES_CUA_PORT", "value" : "443" },
             { "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE", "value" : var.pod.namespace },
             {
               "name" : "SPRING_CLOUD_ECS_DISCOVERY_NAMESPACE-ID",
